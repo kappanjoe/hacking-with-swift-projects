@@ -29,6 +29,8 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(checkScore))
+        
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
         askQuestion()
@@ -76,6 +78,12 @@ class ViewController: UIViewController {
             score = 0
             tries = 0
         }
+    }
+    
+    @objc func checkScore() {
+        let ac = UIAlertController(title: "Paused", message: "Your current score is \(score).", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Resume", style: .default))
+        present(ac, animated: true)
     }
     
 
