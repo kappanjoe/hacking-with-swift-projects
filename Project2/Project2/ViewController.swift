@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Project6a
+//  Project2
 //
 //  Created by Joseph Van Alstyne on 7/25/22.
 //
