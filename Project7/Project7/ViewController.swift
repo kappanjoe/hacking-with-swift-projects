@@ -16,24 +16,14 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showCredits))
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(filterPetitions))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(filterPetitions))
+        let resetButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(parseData))
+        navigationItem.leftBarButtonItems = [searchButton, resetButton]
         
-        let urlString: String
+        if parseData() {
+            return
+        } else { showError() }
         
-        if navigationController?.tabBarItem.tag == 1 {
-            urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
-        } else {
-            urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
-        }
-        
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url){
-                parse(json: data)
-                return
-            }
-        }
-        
-        showError()
     }
     
     func parse(json: Data) {
@@ -47,7 +37,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        return inputPetitions.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,24 +54,41 @@ class ViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-// // // // // TO-DO: Fix filtering - self is assigning to AppDelegate?
+    @objc func parseData() -> Bool {
+        let urlString: String
+        
+        if navigationController?.tabBarItem.tag == 1 {
+            urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
+        } else {
+            urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
+        }
+        
+        if let url = URL(string: urlString) {
+            if let data = try? Data(contentsOf: url){
+                parse(json: data)
+                return true
+            }
+        }
+        
+        return false
+    }
     
-//    @objc func filterPetitions() {
-//        let ac = UIAlertController(title: "Search for:", message: nil, preferredStyle: .alert)
-//        ac.addTextField()
-//        let submitAction = UIAlertAction(title: "Search", style: .default) { [weak self, weak ac] action in
-//            guard let searchTerm = ac?.textFields?[0].text else { return }
-//            self?.inputPetitions = self?.petitions.filter({ petition in
-//                if petition.title.contains(searchTerm) || petition.body.contains(searchTerm) {
-//                    return true
-//                } else { return false }
-//            }) ?? []
-//            self?.tableView.reloadData()
-//        }
-//        ac.addAction(submitAction)
-//        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//        present(ac, animated: true)
-//    }
+    @objc func filterPetitions() {
+        let ac = UIAlertController(title: "Search for:", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        let submitAction = UIAlertAction(title: "Search", style: .default) { [weak self, weak ac] action in
+            guard let searchTerm = ac?.textFields?[0].text else { return }
+            self?.inputPetitions = self?.petitions.filter({ petition in
+                if petition.title.lowercased().contains(searchTerm.lowercased()) || petition.body.lowercased().contains(searchTerm.lowercased()) {
+                    return true
+                } else { return false }
+            }) ?? []
+            self?.tableView.reloadData()
+        }
+        ac.addAction(submitAction)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
     
     @objc func showCredits() {
         let ac = UIAlertController(title: "Credits", message: "Data in this app was originally sourced from the We The People API provided by The White House of the United States of America.\n\nThe data is currently hosted on and accessed from hackingwithswift.com.", preferredStyle: .alert)
