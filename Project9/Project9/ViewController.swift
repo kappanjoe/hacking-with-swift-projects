@@ -80,12 +80,17 @@ class ViewController: UITableViewController {
         ac.addTextField()
         let submitAction = UIAlertAction(title: "Search", style: .default) { [weak self, weak ac] action in
             guard let searchTerm = ac?.textFields?[0].text else { return }
-            self?.inputPetitions = self?.petitions.filter({ petition in
-                if petition.title.lowercased().contains(searchTerm.lowercased()) || petition.body.lowercased().contains(searchTerm.lowercased()) {
-                    return true
-                } else { return false }
-            }) ?? []
-            self?.tableView.reloadData()
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                self?.inputPetitions = self?.petitions.filter({ petition in
+                    if petition.title.lowercased().contains(searchTerm.lowercased()) || petition.body.lowercased().contains(searchTerm.lowercased()) {
+                        return true
+                    } else { return false }
+                }) ?? []
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
         }
         ac.addAction(submitAction)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
