@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var correctAnswer = 0
     var score = 0
     var tries = 0
+    var highScore = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,9 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(checkScore))
         
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+        
+        let defaults = UserDefaults.standard
+        highScore = defaults.integer(forKey: "highScore")
         
         askQuestion()
     }
@@ -63,17 +67,18 @@ class ViewController: UIViewController {
         }
         
         if tries < 10 {
-            let ac = UIAlertController(title: title, message: "\(correction)Your score is \(score).", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
-            present(ac, animated: true)
+            displayAlert(title: title ?? "", message: "\(correction)Your score is \(score).", buttonLabel: "Continue", continueGame: true)
         } else {
             var message = "Your final score is \(score)."
             if score >= 10 {
                 message += " Congratulations! You scored perfectly!"
             }
-            let ac = UIAlertController(title: "Finished!", message: message, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Restart", style: .default, handler: askQuestion))
-            present(ac, animated: true)
+            if score > highScore {
+                message += " New high score!"
+                highScore = score
+                save()
+            }
+            displayAlert(title: "Finished!", message: message, buttonLabel: "Restart", continueGame: true)
             label.text = ""
             score = 0
             tries = 0
@@ -81,11 +86,23 @@ class ViewController: UIViewController {
     }
     
     @objc func checkScore() {
-        let ac = UIAlertController(title: "Paused", message: "Your current score is \(score).", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Resume", style: .default))
+        displayAlert(title: "Paused", message: "Your current score is \(score).\nYour highest score is \(highScore).", buttonLabel: "Resume")
+    }
+    
+    func displayAlert(title: String, message: String, buttonLabel: String, continueGame: Bool = false) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if continueGame {
+            ac.addAction(UIAlertAction(title: buttonLabel, style: .default, handler: askQuestion))
+        } else {
+            ac.addAction(UIAlertAction(title: buttonLabel, style: .default))
+        }
         present(ac, animated: true)
     }
     
+    func save() {
+        let defaults = UserDefaults.standard
+        defaults.set(highScore, forKey: "highScore")
+    }
 
 }
 

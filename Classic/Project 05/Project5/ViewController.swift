@@ -11,9 +11,17 @@ class ViewController: UITableViewController {
 
     var allWords = [String]()
     var usedWords = [String]()
+    var savedWords: [String: [String]] = ["words": [], "usedWords": []]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        if defaults.dictionary(forKey: "savedWords") == nil {
+            defaults.set(savedWords, forKey: "savedWords")
+        } else {
+            savedWords = defaults.dictionary(forKey: "savedWords") as! [String: [String]]
+        }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(startGame))
@@ -27,8 +35,19 @@ class ViewController: UITableViewController {
         if allWords.isEmpty {
             allWords = ["silkworm"]
         }
+
+        if let currentWord = savedWords["clue"]?[0] as? String {
+            if let savedUsedWords = savedWords["usedWords"] {
+                if currentWord != "" {
+                    title = currentWord
+                    usedWords = savedUsedWords
+                    tableView.reloadData()
+                } else {
+                    startGame()
+                }
+            }
+        }
         
-        startGame()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,9 +61,14 @@ class ViewController: UITableViewController {
     }
     
     @objc func startGame() {
-        title = allWords.randomElement()
+        let newClue: String! = allWords.randomElement()
+        title = newClue
+        savedWords["clue"] = [newClue]
+        savedWords["usedWords"]?.removeAll(keepingCapacity: true)
+        save()
+        
         usedWords.removeAll(keepingCapacity: true)
-        tableView.reloadData()
+        tableView.deleteRows(at: tableView.indexPathsForVisibleRows ?? [], with: .automatic)
     }
     
     @objc func promptForAnswer() {
@@ -67,6 +91,8 @@ class ViewController: UITableViewController {
             if isOriginal(word: lowerAnswer) {
                 if isReal(word: lowerAnswer) {
                     usedWords.insert(lowerAnswer, at: 0)
+                    savedWords["usedWords"] = usedWords
+                    save()
                     
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
@@ -79,7 +105,7 @@ class ViewController: UITableViewController {
                 showErrorAlert(title: "Word already used", message: "Have an original thought, for once...")
             }
         } else {
-            showErrorAlert(title: "Word not possible", message: "You can't spell that using individual letters in \(title!), doofus.")
+            showErrorAlert(title: "Word not possible", message: "You can't spell that using the individual letters in \"\(title!)\", doofus.")
         }
     }
     
@@ -121,6 +147,10 @@ class ViewController: UITableViewController {
         present(ac, animated: true)
     }
 
+    func save() {
+        let defaults = UserDefaults.standard
+        defaults.set(savedWords, forKey: "savedWords")
+    }
 
 }
 
