@@ -11,8 +11,14 @@ import MapKit
 class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet var mapView: MKMapView!
     
+    var webCapital: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Capitals"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Map Type", style: .plain, target: self, action: #selector(mapStyleChooser))
         
         let london = Capital(title: "London", coordinate: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275), info: "Home to the 2012 Summer Olympics.")
         let oslo = Capital(title: "Oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "Founded over a thousand years ago.")
@@ -29,6 +35,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
 //        mapView.addAnnotation(tokyo)
         
         mapView.addAnnotations([london, oslo, paris, rome, washington, tokyo])
+        mapView.mapType = .mutedStandard
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -37,7 +44,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         // Define reuse identifier to ensure reuse of annotation views
         let identifier = "Capital"
         // Try dequeue of unused annotation view
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
         if annotationView == nil {
             // Create new annotation view if none available
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
@@ -49,6 +56,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             // Or, reuse unused annotation view
             annotationView?.annotation = annotation
         }
+        annotationView?.pinTintColor = UIColor.darkGray
         
         return annotationView
     }
@@ -57,10 +65,41 @@ class ViewController: UIViewController, MKMapViewDelegate {
         guard let capital = view.annotation as? Capital else { return }
         let placeName = capital.title
         let placeInfo = capital.info
+        webCapital = placeName
         
         let ac = UIAlertController(title: placeName, message: placeInfo, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Cool story, bro.", style: .default))
+        ac.addAction(UIAlertAction(title: "Cool story, bro.", style: .default, handler: openPage))
         present(ac, animated: true)
+    }
+    
+    @objc func mapStyleChooser() {
+        let ac = UIAlertController(title: "Choose Map Type", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Hybrid", style: .default, handler: chooseMapStyle))
+        ac.addAction(UIAlertAction(title: "Satellite", style: .default, handler: chooseMapStyle))
+        ac.addAction(UIAlertAction(title: "Standard", style: .default, handler: chooseMapStyle))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+        present(ac, animated: true)
+    }
+    
+    @objc func chooseMapStyle(action: UIAlertAction) {
+        switch action.title {
+        case "Hybrid":
+            mapView.mapType = .hybrid
+        case "Satellite":
+            mapView.mapType = .satellite
+        case "Standard":
+            mapView.mapType = .mutedStandard
+        default:
+            mapView.mapType = .mutedStandard
+        }
+    }
+                     
+    func openPage(action: UIAlertAction) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Browser") as? WebViewController {
+            vc.capital = webCapital
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

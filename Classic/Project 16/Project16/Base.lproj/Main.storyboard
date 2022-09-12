@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ltJ-E3-pV6">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="shC-U1-l1f"/>
                                 </connections>
@@ -26,10 +26,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="3lh-vn-4X7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ltJ-E3-pV6" secondAttribute="trailing" id="CnA-hf-S1y"/>
-                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XGB-KK-Ith"/>
-                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="h3Q-Dp-FVU"/>
+                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="3lh-vn-4X7"/>
+                            <constraint firstAttribute="trailing" secondItem="ltJ-E3-pV6" secondAttribute="trailing" id="CnA-hf-S1y"/>
+                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="XGB-KK-Ith"/>
+                            <constraint firstItem="ltJ-E3-pV6" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="h3Q-Dp-FVU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2ua-sJ-YhG"/>
@@ -49,6 +49,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EUP-Sg-KM3">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <navigationBarAppearance key="scrollEdgeAppearance"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -58,6 +59,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laA-GO-N6f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-274" y="84"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Bow-YJ-2k0">
+            <objects>
+                <viewController storyboardIdentifier="Browser" id="acD-ZX-ieo" customClass="WebViewController" customModule="Project16" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OGR-10-XS4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4uZ-hs-K2y"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BB9-Pt-4pm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1943" y="84"/>
         </scene>
     </scenes>
     <resources>
