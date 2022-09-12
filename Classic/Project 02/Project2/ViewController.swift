@@ -51,6 +51,18 @@ class ViewController: UIViewController {
         title = countries[correctAnswer].uppercased()
     }
     
+    @IBAction func startTap(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        })
+    }
+    
+    @IBAction func endTap(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
+            sender.transform = .identity
+        })
+    }
+    
     @IBAction func buttonTapped(_ sender: UIButton) {
         tries += 1
         var correction = ""

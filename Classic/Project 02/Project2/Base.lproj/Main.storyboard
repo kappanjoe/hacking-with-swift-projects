@@ -45,6 +45,10 @@
                                 <buttonConfiguration key="configuration" style="plain" image="us" title=""/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qff-Ab-EHc"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PDc-5S-Fye"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchCancel" id="QU3-gU-z4G"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="mZq-aa-4Ks"/>
+                                    <action selector="startTap:" destination="BYZ-38-t0r" eventType="touchDown" id="u00-FR-HyD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRt-U3-sia">
@@ -58,6 +62,10 @@
                                 <buttonConfiguration key="configuration" style="plain" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4IZ-8i-ms5"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PJD-JS-GYm"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="TNa-fA-pXp"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchCancel" id="ZjB-Yo-776"/>
+                                    <action selector="startTap:" destination="BYZ-38-t0r" eventType="touchDown" id="m20-e3-cRa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSa-VL-CYk">
@@ -71,6 +79,10 @@
                                 <buttonConfiguration key="configuration" style="plain" image="us"/>
                                 <connections>
                                     <action selector="buttonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ibY-9u-UKT"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="Bw9-HV-Lha"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oQf-zf-A7a"/>
+                                    <action selector="endTap:" destination="BYZ-38-t0r" eventType="touchCancel" id="w9l-oS-gTI"/>
+                                    <action selector="startTap:" destination="BYZ-38-t0r" eventType="touchDown" id="PR9-7p-ggX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqz-re-k2h">
