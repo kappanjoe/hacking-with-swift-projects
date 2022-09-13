@@ -1,6 +1,6 @@
 # Hacking With Swift
 
-This is @kappanjoe's personal repository of projects from the [Hacking with Swift tutorial series](https://www.hackingwithswift.com).
+This is @kappanjoe's personal repository of projects from the [Hacking with Swift](https://www.hackingwithswift.com) tutorial series.
 
 # Table of Contents
 
@@ -22,3 +22,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 14: Whack-a-Penguin
 - Project 15: Animation
 - Project 16: Capital Cities
+- Project 17: Space Race
