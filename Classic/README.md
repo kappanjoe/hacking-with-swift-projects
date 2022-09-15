@@ -19,3 +19,4 @@
 - Project 17: Space Race
 - Project 18: Debugging
 - Project 19: JavaScript Injection
+- Project 20: Fireworks Night
