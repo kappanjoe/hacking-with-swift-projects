@@ -33,12 +33,17 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "Tell me more...", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+        let remind = UNNotificationAction(identifier: "remind", title: "Remind me later", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remind], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
     }
     
     @objc func scheduleLocal() {
+        scheduleIntervalLocal(interval: 5)
+    }
+    
+    func scheduleIntervalLocal(interval: Int) {
         registerCategories()
         
         let center = UNUserNotificationCenter.current()
@@ -59,7 +64,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         // To Remove Notifications //
 //        center.removeAllPendingNotificationRequests()
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        // Interval Trigger Example //
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(interval), repeats: false)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         center.add(request)
@@ -75,11 +81,16 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
             switch response.actionIdentifier {
             case UNNotificationDefaultActionIdentifier:
                 // User swiped to open
-                print("Default identifier")
+                alert(title: "Default identifier", message: nil)
 
             case "show":
                 // User tapped "Tell me more..." button, i.e., "show" action
-                print("Show more information…")
+                alert(title: "Show more information...", message: nil)
+                
+            case "remind":
+                // User tapped "Remind me later"
+                alert(title: "You will be reminded in 24 hours", message: nil)
+                scheduleIntervalLocal(interval: 86400)
 
             default:
                 break
@@ -88,6 +99,12 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
 
         // Call the completion handler when you're done
         completionHandler()
+    }
+    
+    func alert(title: String, message: String?) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
 
 }

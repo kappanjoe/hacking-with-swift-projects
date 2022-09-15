@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerLocal()
+        scheduleLocal()
+        
         button1.layer.borderWidth = 1
         button2.layer.borderWidth = 1
         button3.layer.borderWidth = 1
@@ -114,6 +117,33 @@ class ViewController: UIViewController {
     func save() {
         let defaults = UserDefaults.standard
         defaults.set(highScore, forKey: "highScore")
+    }
+    
+    func registerLocal() {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                print("Notifications authorized.")
+            } else {
+                print("Notifications denied.")
+            }
+        }
+        center.removeAllDeliveredNotifications()
+        center.removeAllPendingNotificationRequests()
+    }
+    
+    func scheduleLocal() {
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title = "⏳ Time to play!"
+        content.body = "Ready to play today's game? 👀"
+        content.categoryIdentifier = "remind"
+        content.sound = UNNotificationSound.default
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = 11
+        dateComponents.minute = 30
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
     }
 
 }
