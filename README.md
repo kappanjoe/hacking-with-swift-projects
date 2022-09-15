@@ -24,3 +24,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 16: Capital Cities
 - Project 17: Space Race
 - Project 18: Debugging
+- Project 19: JavaScript Injection
