@@ -107,7 +107,7 @@ class ActionViewController: UIViewController {
         let ac = UIAlertController(title: "Open...", message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Premade Scripts", style: .default) { [weak self] _ in
             let premadeAC = UIAlertController(title: "Premade Scripts", message: "Select a premade example script to replace the current script content.", preferredStyle: .actionSheet)
-            premadeAC.addAction(UIAlertAction(title: "Show Title in Alert", style: .default) { [weak self] _ in
+            premadeAC.addAction(UIAlertAction(title: "Show Title in Alert", style: .default) { _ in
                 self?.script.text = "alert(document.title);"
             })
             premadeAC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -118,15 +118,6 @@ class ActionViewController: UIViewController {
                 tc.scripts = self?.scripts ?? [:]
                 self?.navigationController?.pushViewController(tc, animated: true)
             }
-            
-//            let customAC = UIAlertController(title: "Custom Scripts", message: "Select one of your custom scripts to replace the current script content.", preferredStyle: .actionSheet)
-//            for item in self?.scripts ?? [:] {
-//                customAC.addAction(UIAlertAction(title: item.value.name, style: .default) { [weak self] _ in
-//                    self?.script.text = item.value.script
-//                })
-//            }
-//            customAC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//            self?.present(customAC, animated: true)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
