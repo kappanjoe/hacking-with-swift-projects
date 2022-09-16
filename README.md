@@ -27,3 +27,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 19: JavaScript Injection
 - Project 20: Fireworks Night
 - Project 21: Local Notifications
+- Project 22: Detect-a-Beacon
