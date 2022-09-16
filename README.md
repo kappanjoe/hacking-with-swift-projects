@@ -28,3 +28,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 20: Fireworks Night
 - Project 21: Local Notifications
 - Project 22: Detect-a-Beacon
+- Project 23: Swifty Ninja
