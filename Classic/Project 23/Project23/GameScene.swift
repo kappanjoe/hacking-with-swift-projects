@@ -9,7 +9,9 @@ import SpriteKit
 import GameplayKit
 import AVFoundation
 
-
+enum EnemyType: CaseIterable {
+    case penguin, ninjaPenguin, bomb
+}
 enum SequenceType: CaseIterable {
     case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain
 }
@@ -125,15 +127,25 @@ class GameScene: SKScene {
     func createEnemy(forceBomb: ForceBomb = .random) {
         let enemy: SKSpriteNode
         
-        var enemyType = Int.random(in: 0...6)
+        var enemyType: EnemyType!
         
         if forceBomb == .never {
-            enemyType = 1
+            enemyType = .penguin
         } else if forceBomb == .always {
-            enemyType = 0
+            enemyType = .bomb
+        } else {
+            // Let RNGesus take the wheel!
+            let randomizer = Int.random(in: 0...15)
+            if randomizer <= 2 {
+                enemyType = .bomb
+            } else if randomizer == 3 {
+                enemyType = .ninjaPenguin
+            } else {
+                enemyType = .penguin
+            }
         }
         
-        if enemyType == 0 {
+        if enemyType == .bomb {
             // Create new SKSpriteNode to hold fuse and bomb images with zPosition 1
             enemy = SKSpriteNode()
             enemy.zPosition = 1
@@ -163,10 +175,15 @@ class GameScene: SKScene {
                 emitter.position = CGPoint(x: 76, y: 64)
                 enemy.addChild(emitter)
             }
-        } else {
+        } else if enemyType == .penguin {
             enemy = SKSpriteNode(imageNamed: "penguin")
             run(SKAction.playSoundFileNamed("launch.caf", waitForCompletion: false))
             enemy.name = "enemy"
+        } else {
+            enemy = SKSpriteNode(imageNamed: "penguin")
+            enemy.blendMode = .subtract
+            run(SKAction.playSoundFileNamed("launch.caf", waitForCompletion: false))
+            enemy.name = "super"
         }
         
         // Give the enemy a random position
@@ -174,7 +191,7 @@ class GameScene: SKScene {
         enemy.position = randomPosition
         
         // Create random angular velocity (spin speed)
-        let randomAngularVelocity = CGFloat.random(in: -3...3)
+        var randomAngularVelocity = CGFloat.random(in: -3...3)
         let randomXVelocity: Int
         
         // Create random X velocity based on position
@@ -189,7 +206,12 @@ class GameScene: SKScene {
         }
         
         // Create random Y velocity for variety
-        let randomYVelocity = Int.random(in: 24...32)
+        var randomYVelocity = Int.random(in: 24...32)
+        
+        if enemy.name == "super" {
+            randomAngularVelocity *= 1.3
+            randomYVelocity += 5
+        }
         
         // Give all enemies a circular physics body without collisions
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
@@ -287,6 +309,19 @@ class GameScene: SKScene {
         
         isGameEnded = true
         
+        let gameOverLabel = SKLabelNode(text: "Game Over")
+        gameOverLabel.fontName = "Chalkduster"
+        gameOverLabel.horizontalAlignmentMode = .center
+        gameOverLabel.position = CGPoint(x: 512, y: 350)
+        gameOverLabel.color = UIColor.white
+        gameOverLabel.fontSize = 128
+        gameOverLabel.alpha = 0
+        gameOverLabel.zPosition = 10
+        addChild(gameOverLabel)
+        
+        gameOverLabel.run(SKAction.scale(to: 0.6, duration: 2))
+        gameOverLabel.run(SKAction.fadeAlpha(to: 1, duration: 2))
+        
         physicsWorld.speed = 0
         isUserInteractionEnabled = false
         
@@ -363,11 +398,21 @@ class GameScene: SKScene {
         
         let nodesAtPoint = nodes(at: location)
         for case let node as SKSpriteNode in nodesAtPoint {
-            if node.name == "enemy" {
+            if node.name == "enemy"  || node.name == "super" {
                 // Create a particle effect over the penguin
                 if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy") {
                     emitter.position = node.position
+                    if node.name == "super" {
+                        emitter.particleBlendMode = .subtract
+                    }
                     addChild(emitter)
+                }
+                
+                // Increase score
+                if node.name == "super" {
+                    score += 5
+                } else {
+                    score += 1
                 }
                 
                 // Clear its node name to prevent repeated swipes
@@ -384,9 +429,6 @@ class GameScene: SKScene {
                 // Remove from scene
                 let seq = SKAction.sequence([group, .removeFromParent()])
                 node.run(seq)
-                
-                // Increase score
-                score += 1
                 
                 // Remove from activeEnemies
                 if let index = activeEnemies.firstIndex(of: node) {
@@ -440,7 +482,7 @@ class GameScene: SKScene {
                         
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
-                    } else if node.name == "bombContainer" {
+                    } else if node.name == "super" || node.name == "bombContainer" {
                         node.name = ""
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
