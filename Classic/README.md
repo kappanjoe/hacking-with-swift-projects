@@ -23,3 +23,4 @@
 - Project 21: Local Notifications
 - Project 22: Detect-a-Beacon
 - Project 23: Swifty Ninja
+- Project 24: Swift Strings
