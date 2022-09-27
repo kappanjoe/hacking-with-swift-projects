@@ -1,27 +1,27 @@
 # Classic (UIKit/SpriteKit) Table of Contents
 
-- **Project 1: Storm Viewer** - Constants and variables, UITableView, UIImageView, FileManager, storyboards
-- **Project 2: Guess the Flag** - Asset catalogs, UIButton, CALayer, UIColor, UIAlertController
-- **Project 3: Social media** - UIBarButtonItem, UIActivityViewController, URL
-- **Project 4: Easy Browser** - loadView(), WKWebView, URLRequest, UIToolbar, UIProgressView, key-value observing
-- **Project 5: Word Scramble** - Closures, method return values, booleans, NSRange
-- **Project 6: Auto Layout** - NSLayoutConstraint, Visual Format Language, layout anchors
-- **Project 7: Whitehouse Petitions** - JSON, Data, UITabBarController
-- **Project 8: 7 Swifty Words** - addTarget(), enumerated(), count(), index(of:), joined(), property observers, range operators
-- **Project 9: Grand Central Dispatch** - DispatchQueue, perform(inBackground:)
-- **Project 10: Names to Faces** - UICollectionView, UIImagePickerController, UUID, classes
-- **Project 11: Pachinko** - SpriteKit, physics, blend modes, radians, CGFloat, NSKeyedUnarchiver
-- **Project 12: UserDefaults** - UserDefaults, NSCoding, Codable, NSKeyedArchiver
-- **Project 13: Instafilter** - Core Image, filters, UISlider, writing to the photo library
-- **Project 14: Whack-a-Penguin** - SKCropNode, SKTexture, asyncAfter()
-- **Project 15: Animation** - Core Animation, CGAffineTransform, switch/case
-- **Project 16: Capital Cities** - MKMapView, MKAnnotation, MKPinAnnotationView, CLLocationCoordinate2D
-- **Project 17: Space Race** - Per-pixel collision detection, advancing particle systems, linear and angular damping
-- **Project 18: Debugging** - print(), assert(), breakpoints, and view debugging
-- **Project 19: JavaScript Injection** - Safari extensions, UITextView, NotificationCenter
-- **Project 20: Fireworks Night** - Timer, follow(path:), sprite color blending, shake gestures
-- **Project 21: Local Notifications** - UNUserNotificationCenter, UNNotificationRequest, UNMutableNotificationContent, UNCalendarNotificationTrigger, and UNTimeIntervalNotificationTrigger
-- **Project 22: Detect-a-Beacon** - CLLocationManager, CLBeaconRegion, CLProximity
-- **Project 23: Swifty Ninja** - SKShapeNode, AVAudioPlayer, UIBezierPath, custom enums
-- **Project 24: Swift Strings** - contains(where:), NSAttributedString
-- **Project 25: Selfie Share** - Multipeer Connectivity Framework
+- ***Project 1: Storm Viewer*** - Constants and variables, UITableView, UIImageView, FileManager, storyboards
+- ***Project 2: Guess the Flag*** - Asset catalogs, UIButton, CALayer, UIColor, UIAlertController
+- ***Project 3: Social media*** - UIBarButtonItem, UIActivityViewController, URL
+- ***Project 4: Easy Browser*** - loadView(), WKWebView, URLRequest, UIToolbar, UIProgressView, key-value observing
+- ***Project 5: Word Scramble*** - Closures, method return values, booleans, NSRange
+- ***Project 6: Auto Layout*** - NSLayoutConstraint, Visual Format Language, layout anchors
+- ***Project 7: Whitehouse Petitions*** - JSON, Data, UITabBarController
+- ***Project 8: 7 Swifty Words*** - addTarget(), enumerated(), count(), index(of:), joined(), property observers, range operators
+- ***Project 9: Grand Central Dispatch*** - DispatchQueue, perform(inBackground:)
+- ***Project 10: Names to Faces*** - UICollectionView, UIImagePickerController, UUID, classes
+- ***Project 11: Pachinko*** - SpriteKit, physics, blend modes, radians, CGFloat, NSKeyedUnarchiver
+- ***Project 12: UserDefaults*** - UserDefaults, NSCoding, Codable, NSKeyedArchiver
+- ***Project 13: Instafilter*** - Core Image, filters, UISlider, writing to the photo library
+- ***Project 14: Whack-a-Penguin*** - SKCropNode, SKTexture, asyncAfter()
+- ***Project 15: Animation*** - Core Animation, CGAffineTransform, switch/case
+- ***Project 16: Capital Cities*** - MKMapView, MKAnnotation, MKPinAnnotationView, CLLocationCoordinate2D
+- ***Project 17: Space Race*** - Per-pixel collision detection, advancing particle systems, linear and angular damping
+- ***Project 18: Debugging*** - print(), assert(), breakpoints, and view debugging
+- ***Project 19: JavaScript Injection*** - Safari extensions, UITextView, NotificationCenter
+- ***Project 20: Fireworks Night*** - Timer, follow(path:), sprite color blending, shake gestures
+- ***Project 21: Local Notifications*** - UNUserNotificationCenter, UNNotificationRequest, UNMutableNotificationContent, UNCalendarNotificationTrigger, and UNTimeIntervalNotificationTrigger
+- ***Project 22: Detect-a-Beacon*** - CLLocationManager, CLBeaconRegion, CLProximity
+- ***Project 23: Swifty Ninja*** - SKShapeNode, AVAudioPlayer, UIBezierPath, custom enums
+- ***Project 24: Swift Strings*** - contains(where:), NSAttributedString
+- ***Project 25: Selfie Share*** - Multipeer Connectivity Framework
