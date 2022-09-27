@@ -24,3 +24,4 @@
 - Project 22: Detect-a-Beacon
 - Project 23: Swifty Ninja
 - Project 24: Swift Strings
+- Project 25: Selfie Share
