@@ -38,7 +38,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    var isGameOver = false
+    // Start isGameOver with true value to allow initialization of player
+    var isGameOver = true
     
     override func didMove(to view: SKView) {
         let background = SKSpriteNode(imageNamed: "background.jpg")
@@ -72,6 +73,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         loadLevel(1)
         createPlayer(at: nil)
+        
+        // Set isGameOver to false to begin updating motion
+        isGameOver = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -121,7 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.allowsRotation = false
         player.physicsBody?.linearDamping = 0.5
         player.physicsBody?.categoryBitMask = CollisionTypes.player.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionTypes.star.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionTypes.star.rawValue | CollisionTypes.vortex.rawValue | CollisionTypes.finish.rawValue | CollisionTypes.teleport.rawValue
         player.physicsBody?.collisionBitMask = CollisionTypes.wall.rawValue
         
         addChild(player)
@@ -261,29 +265,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 return
             }
             // Move to next level; set isGameOver to true to allow character respawn
+            node.removeFromParent()
             isGameOver = true
             resetPlayer(player, at: nil, nextLevel: true)
         case "teleport":
             // Player enters teleport; remove from possible exits by renaming
             node.name = "usedTeleport"
             
-            let scale = SKAction.scale(to: 0.0001, duration: 0.25)
-            let remove = SKAction.removeFromParent()
-            let sequence = SKAction.sequence([scale, remove])
-            
-            guard let exit = childNode(withName: "teleport") else {
-                // Remove if no exit exists
-                node.run(sequence)
-                return
-            }
+            // Find exit
+            guard let exit = childNode(withName: "teleport") else { return }
             
             // Teleport player; set isGameOver to true to allow character respawn
             isGameOver = true
             resetPlayer(node, at: exit.position, nextLevel: false)
             
-            // Remove teleports after use
-            node.run(sequence)
-            exit.run(sequence)
+            // Remove exit from possible teleports
+            exit.name = "usedTeleport"
+            
+            let delay = SKAction.wait(forDuration: 0.75)
+            let stop = SKAction.stop()
+            let fade = SKAction.fadeOut(withDuration: 0.25)
+            let seq = SKAction.sequence([delay, stop, fade])
+            node.run(seq)
+            exit.run(seq)
+            
         default:
             return
         }
