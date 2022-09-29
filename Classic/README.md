@@ -26,3 +26,4 @@
 - ***Project 24: Swift Strings*** - contains(where:), NSAttributedString
 - ***Project 25: Selfie Share*** - Multipeer Connectivity Framework
 - ***Project 26: Marble Maze*** - Core Motion, collision bitmasks, array reversing, compiler directives
+- ***Project 27: Core Graphics*** - Core Graphics
