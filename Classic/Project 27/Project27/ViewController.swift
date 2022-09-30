@@ -144,10 +144,68 @@ class ViewController: UIViewController {
         imageView.image = img
     }
     
+    func drawEmoji() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            let faceRect = CGRect(x: 128, y: 128, width: 256, height: 256)
+            ctx.cgContext.setFillColor(UIColor.systemYellow.cgColor)
+            ctx.cgContext.addEllipse(in: faceRect)
+            ctx.cgContext.drawPath(using: .fill)
+            
+            var eyeRect = CGRect(x: 200, y: 192, width: 24, height: 64)
+            ctx.cgContext.setFillColor(UIColor.darkGray.cgColor)
+            ctx.cgContext.addEllipse(in: eyeRect)
+            ctx.cgContext.drawPath(using: .fill)
+            
+            eyeRect = CGRect(x: 288, y: 192, width: 24, height: 64)
+            ctx.cgContext.addEllipse(in: eyeRect)
+            ctx.cgContext.drawPath(using: .fill)
+            
+            ctx.cgContext.move(to: CGPoint(x: 200, y: 320))
+            ctx.cgContext.addLine(to: CGPoint(x: 312, y: 304))
+            ctx.cgContext.setStrokeColor(UIColor.darkGray.cgColor)
+            ctx.cgContext.setLineWidth(4)
+            ctx.cgContext.strokePath()
+            
+        }
+        
+        imageView.image = img
+    }
+    
+    func drawLettering() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            ctx.cgContext.setStrokeColor(UIColor.darkGray.cgColor)
+            ctx.cgContext.setLineWidth(4)
+            
+            ctx.cgContext.move(to: CGPoint(x: 64, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 64, y: 320))
+            ctx.cgContext.move(to: CGPoint(x: 8, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 128, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 160, y: 320))
+            ctx.cgContext.addLine(to: CGPoint(x: 192, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 224, y: 320))
+            ctx.cgContext.addLine(to: CGPoint(x: 256, y: 192))
+            ctx.cgContext.move(to: CGPoint(x: 320, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 320, y: 320))
+            ctx.cgContext.move(to: CGPoint(x: 384, y: 320))
+            ctx.cgContext.addLine(to: CGPoint(x: 384, y: 192))
+            ctx.cgContext.addLine(to: CGPoint(x: 496, y: 320))
+            ctx.cgContext.addLine(to: CGPoint(x: 496, y: 192))
+            
+            ctx.cgContext.strokePath()
+            
+        }
+        
+        imageView.image = img
+    }
+    
     @IBAction func redrawTapped() {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 7 {
             currentDrawType = 0
         }
         
@@ -169,6 +227,12 @@ class ViewController: UIViewController {
             
         case 5:
             drawImagesAndText()
+            
+        case 6:
+            drawEmoji()
+            
+        case 7:
+            drawLettering()
             
         default:
             break

@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWy-Vw-zJz">
-                                <rect key="frame" x="343" y="920" width="82" height="35"/>
+                                <rect key="frame" x="343" y="861" width="82" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Redraw"/>
                                 <connections>
@@ -34,7 +34,7 @@
                             <constraint firstItem="XME-FL-Jzh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1aR-8v-X1Q"/>
                             <constraint firstItem="XME-FL-Jzh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="71l-Cf-AhO"/>
                             <constraint firstItem="VWy-Vw-zJz" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="F8o-2v-Xbj"/>
-                            <constraint firstItem="VWy-Vw-zJz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="900" id="QbD-Av-mRT"/>
+                            <constraint firstItem="VWy-Vw-zJz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-128" id="QbD-Av-mRT"/>
                             <constraint firstItem="XME-FL-Jzh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gNE-a3-MV3"/>
                             <constraint firstItem="XME-FL-Jzh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="n65-77-UXW"/>
                         </constraints>
