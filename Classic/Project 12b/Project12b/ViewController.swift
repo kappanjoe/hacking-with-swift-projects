@@ -5,6 +5,7 @@
 //  Created by Joseph Van Alstyne on 8/1/22.
 //
 
+import LocalAuthentication
 import UIKit
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -14,17 +15,10 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unlock", style: .plain, target: self, action: #selector(authenticate))
         
-        let defaults = UserDefaults.standard
-        if let savedPeople = defaults.object(forKey: "people") as? Data {
-            let jsonDecoder = JSONDecoder()
-            do {
-                people = try jsonDecoder.decode([Person].self, from: savedPeople)
-            } catch {
-                print("Failed to load people.")
-            }
-        }
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(lockUp), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -111,9 +105,11 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            picker.sourceType = .camera
-        }
+        picker.sourceType = .savedPhotosAlbum
+// iOS 16 Simulator seems to think it has a camera? idk.
+//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//            picker.sourceType = .camera
+//        }
         present(picker, animated: true)
     }
     
@@ -124,6 +120,59 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             defaults.set(savedData, forKey: "people")
         } else {
             print("Failed to save people.")
+        }
+    }
+    
+    @objc func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Authentication required to access contacts. Identify yourself!"
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                [weak self] success, authenticationError in
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self?.loadPeople()
+                        self?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Lock", style: .done, target: self, action: #selector(self?.lockUp))
+                        self?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self?.addNewPerson))
+                    } else {
+                        let ac = UIAlertController(title: "Authentication failed", message: "You don't look like yourself. Try again.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(ac, animated: true)
+                    }
+                }
+            }
+        } else {
+            let ac = UIAlertController(title: "Biometrics Unavailable", message: "Your phone doesn't have Face ID or Touch ID and honestly why???", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    @objc func lockUp() {
+        people = []
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.deleteItems(at: self!.collectionView.indexPathsForVisibleItems)
+            self?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Unlock", style: .plain, target: self, action: #selector(self?.authenticate))
+            self?.navigationItem.leftBarButtonItem = nil
+        }
+    }
+    
+    func loadPeople() {
+        let defaults = UserDefaults.standard
+        if let savedPeople = defaults.object(forKey: "people") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                people = try jsonDecoder.decode([Person].self, from: savedPeople)
+            } catch {
+                print("Failed to load people.")
+            }
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
         }
     }
 

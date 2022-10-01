@@ -33,3 +33,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 25: Selfie Share
 - Project 26: Marble Maze
 - Project 27: Core Graphics
+- Project 28: Secret Swift
