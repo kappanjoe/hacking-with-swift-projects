@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="ipad7_9" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Project29" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="1133" height="744"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="45" minValue="10" maxValue="90" translatesAutoresizingMaskIntoConstraints="NO" id="Nw7-Ct-dab">
+                                <rect key="frame" x="75.5" y="44" width="280" height="31"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="yfy-ox-dwY"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="angleChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="kQO-Vw-wwm"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="50" maxValue="250" translatesAutoresizingMaskIntoConstraints="NO" id="a66-Ur-DdY">
+                                <rect key="frame" x="487.5" y="44" width="283.5" height="31"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ibf-y5-5eM"/>
+                                    <constraint firstAttribute="width" constant="279.5" id="YhZ-jJ-ZDn"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="velocityChanged:" destination="BV1-FR-VrT" eventType="valueChanged" id="WC9-tN-nFO"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSa-lk-Hm6">
+                                <rect key="frame" x="361.5" y="48.5" width="120" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="4F7-gU-hCq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="5Jp-6E-PcJ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="EsL-tx-c7Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lr-7N-6Ze">
+                                <rect key="frame" x="777" y="48.5" width="180" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="RyF-6n-gvI"/>
+                                    <constraint firstAttribute="height" constant="21" id="fTB-Up-uCR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVX-xV-b6K">
+                                <rect key="frame" x="975" y="40" width="98" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="98" id="LtE-Re-9ed"/>
+                                    <constraint firstAttribute="height" constant="38" id="p7y-Ah-a2s"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="LAUNCH">
+                                    <fontDescription key="titleFontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" systemColor="systemRedColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="launch:" destination="BV1-FR-VrT" eventType="touchUpInside" id="SNw-Eo-OZU"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;&lt;&lt; PLAYER ONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoU-yE-RtZ">
+                                <rect key="frame" x="490.5" y="104" width="152" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="152" id="ZXW-LK-TXo"/>
+                                    <constraint firstAttribute="height" constant="21" id="y3u-i5-jqk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYM-y2-WD9">
+                                <rect key="frame" x="77.5" y="104" width="120" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="de7-K1-5gd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhx-GV-Do7">
+                                <rect key="frame" x="953" y="104" width="120" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="oPg-8p-6JM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAs-SE-JjI">
+                                <rect key="frame" x="496" y="137" width="120" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="8t8-fY-Miu"/>
+                                    <constraint firstAttribute="height" constant="21" id="aV4-w1-Va6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrowshape.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gGb-7u-7Of">
+                                <rect key="frame" x="624" y="138.5" width="21" height="17.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6lr-7N-6Ze" firstAttribute="centerY" secondItem="IVX-xV-b6K" secondAttribute="centerY" id="12p-Hz-zw1"/>
+                            <constraint firstItem="qSa-lk-Hm6" firstAttribute="leading" secondItem="Nw7-Ct-dab" secondAttribute="trailing" constant="8" id="8p8-fj-zgr"/>
+                            <constraint firstItem="yAs-SE-JjI" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" constant="-10.5" id="8wY-P3-38c"/>
+                            <constraint firstItem="qSa-lk-Hm6" firstAttribute="centerY" secondItem="IVX-xV-b6K" secondAttribute="centerY" id="Abf-Qi-Xgf"/>
+                            <constraint firstItem="IVX-xV-b6K" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6lr-7N-6Ze" secondAttribute="trailing" constant="12" id="Ao0-sG-tdX"/>
+                            <constraint firstItem="Nw7-Ct-dab" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" priority="750" constant="77.5" id="Iak-X5-K31"/>
+                            <constraint firstItem="gGb-7u-7Of" firstAttribute="leading" secondItem="yAs-SE-JjI" secondAttribute="trailing" constant="8" id="KwU-23-Zdy"/>
+                            <constraint firstItem="WoU-yE-RtZ" firstAttribute="centerX" secondItem="4qk-I5-YsI" secondAttribute="centerX" id="NaB-Q2-O4Q"/>
+                            <constraint firstItem="a66-Ur-DdY" firstAttribute="centerY" secondItem="IVX-xV-b6K" secondAttribute="centerY" id="OQt-P5-4aU"/>
+                            <constraint firstItem="6lr-7N-6Ze" firstAttribute="leading" secondItem="a66-Ur-DdY" secondAttribute="trailing" constant="8" id="Q9z-1b-LQx"/>
+                            <constraint firstItem="IVX-xV-b6K" firstAttribute="top" secondItem="4qk-I5-YsI" secondAttribute="top" constant="16" id="RKp-0t-EKV"/>
+                            <constraint firstItem="hhx-GV-Do7" firstAttribute="trailing" secondItem="IVX-xV-b6K" secondAttribute="trailing" id="YUP-ks-Yk6"/>
+                            <constraint firstItem="yAs-SE-JjI" firstAttribute="top" secondItem="WoU-yE-RtZ" secondAttribute="bottom" constant="12" id="Yww-ri-QMA"/>
+                            <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="IVX-xV-b6K" secondAttribute="trailing" constant="60" id="czM-9S-iPb"/>
+                            <constraint firstItem="Nw7-Ct-dab" firstAttribute="centerY" secondItem="IVX-xV-b6K" secondAttribute="centerY" id="j2i-IO-CIC"/>
+                            <constraint firstItem="SYM-y2-WD9" firstAttribute="leading" secondItem="Nw7-Ct-dab" secondAttribute="leading" id="lcb-Oc-1eJ"/>
+                            <constraint firstItem="a66-Ur-DdY" firstAttribute="leading" secondItem="qSa-lk-Hm6" secondAttribute="trailing" constant="8" id="nbx-cU-rJN"/>
+                            <constraint firstItem="SYM-y2-WD9" firstAttribute="centerY" secondItem="WoU-yE-RtZ" secondAttribute="centerY" id="qOE-me-C9K"/>
+                            <constraint firstItem="hhx-GV-Do7" firstAttribute="centerY" secondItem="WoU-yE-RtZ" secondAttribute="centerY" id="qhy-W2-rZD"/>
+                            <constraint firstItem="gGb-7u-7Of" firstAttribute="centerY" secondItem="yAs-SE-JjI" secondAttribute="centerY" id="rlQ-eD-gQG"/>
+                            <constraint firstItem="WoU-yE-RtZ" firstAttribute="top" secondItem="IVX-xV-b6K" secondAttribute="bottom" constant="26" id="uby-Sl-9QV"/>
+                            <constraint firstItem="a66-Ur-DdY" firstAttribute="width" secondItem="Nw7-Ct-dab" secondAttribute="width" multiplier="1.01268" id="vQq-eg-x0r"/>
+                            <constraint firstItem="hhx-GV-Do7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WoU-yE-RtZ" secondAttribute="trailing" priority="750" constant="200" id="vr8-q4-xbD"/>
+                            <constraint firstItem="WoU-yE-RtZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SYM-y2-WD9" secondAttribute="trailing" priority="750" constant="200" id="z10-P9-8Hn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="angleLabel" destination="qSa-lk-Hm6" id="zcl-jC-t8d"/>
+                        <outlet property="angleSlider" destination="Nw7-Ct-dab" id="h9I-f7-ARA"/>
+                        <outlet property="launchButton" destination="IVX-xV-b6K" id="ck2-wt-gYu"/>
+                        <outlet property="player1Score" destination="SYM-y2-WD9" id="TAz-ew-Bqd"/>
+                        <outlet property="player2Score" destination="hhx-GV-Do7" id="h3K-l1-BhA"/>
+                        <outlet property="playerIndicator" destination="WoU-yE-RtZ" id="0BE-Dq-vho"/>
+                        <outlet property="velocityLabel" destination="6lr-7N-6Ze" id="h4a-ZV-Wwl"/>
+                        <outlet property="velocitySlider" destination="a66-Ur-DdY" id="h3m-JS-Yoa"/>
+                        <outlet property="windArrow" destination="gGb-7u-7Of" id="V6d-kP-8yU"/>
+                        <outlet property="windLabel" destination="yAs-SE-JjI" id="QcW-SH-QQ2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57.987643424536628" y="-25"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrowshape.right.fill" catalog="system" width="128" height="104"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
