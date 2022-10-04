@@ -208,18 +208,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func updateScore(player: Int) {
         if player == 1 {
-            DispatchQueue.main.async {
-                self.viewController.p1Score += 1
-                if self.viewController.p1Score >= 3 {
-                    self.gameWon(winner: player)
-                }
+            self.viewController.p1Score += 1
+            if self.viewController.p1Score >= 3 {
+                self.gameWon(winner: player)
             }
         } else {
-            DispatchQueue.main.async {
-                self.viewController.p2Score += 1
-                if self.viewController.p2Score >= 3 {
-                    self.gameWon(winner: player)
-                }
+            self.viewController.p2Score += 1
+            if self.viewController.p2Score >= 3 {
+                self.gameWon(winner: player)
             }
         }
     }
