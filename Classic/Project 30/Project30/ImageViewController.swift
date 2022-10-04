@@ -51,8 +51,8 @@ class ImageViewController: UIViewController {
 
 		title = image.replacingOccurrences(of: "-Large.jpg", with: "")
         // Use UIImage(contentsOfFile:) to avoid caching these exceedingly large images when they probably won't be accessed very frequently
-        let path = Bundle.main.path(forResource: image, ofType: nil)!
-        let original = UIImage(contentsOfFile: path)!
+        guard let path: String = Bundle.main.path(forResource: image, ofType: nil) else { return }
+        guard let original = UIImage(contentsOfFile: path) else { return }
 
 		let renderer = UIGraphicsImageRenderer(size: original.size)
 

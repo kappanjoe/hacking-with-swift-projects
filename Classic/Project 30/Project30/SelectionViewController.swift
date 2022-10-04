@@ -13,6 +13,8 @@ class SelectionViewController: UITableViewController {
     // Remove unnecessary "cache" of view controllers
     //	var viewControllers = [UIViewController]() // create a cache of the detail view controllers for faster loading
 	var dirty = false
+    var images = [String: UIImage]()
+    let thumbSize = CGSize(width: 90, height: 90)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +29,15 @@ class SelectionViewController: UITableViewController {
 		// load all the JPEGs into our array
 		let fm = FileManager.default
 
-		if let tempItems = try? fm.contentsOfDirectory(atPath: Bundle.main.resourcePath!) {
+        if let tempItems = try? fm.contentsOfDirectory(atPath: Bundle.main.resourcePath ?? "") {
 			for item in tempItems {
 				if item.range(of: "Large") != nil {
 					items.append(item)
+                    if !fm.fileExists(atPath:
+                                        getDocumentsDirectory().appendingPathComponent(circleName(item: item)).path) {
+                        print("Circle version of \(item) did not exist. Now saving.")
+                        saveCircle(item: item)
+                    }
 				}
 			}
 		}
@@ -72,29 +79,8 @@ class SelectionViewController: UITableViewController {
 
 		// find the image for this cell, and load its thumbnail
 		let currentImage = items[indexPath.row % items.count]
-		let imageRootName = currentImage.replacingOccurrences(of: "Large", with: "Thumb")
-		let path = Bundle.main.path(forResource: imageRootName, ofType: nil)!
-		let original = UIImage(contentsOfFile: path)!
 
-		// Scale images down to size before drawing
-        let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
-        let renderer = UIGraphicsImageRenderer(size: renderRect.size)
-
-		let rounded = renderer.image { ctx in
-            // // Render shadow at draw time instead of based on imageView
-            // // Do not use -- results do not match intended appearance
-            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 200, color: UIColor.black.cgColor)
-            // ctx.cgContext.fillEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
-            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 0, color: nil)
-            
-            ctx.cgContext.addEllipse(in: renderRect)
-			ctx.cgContext.clip()
-
-			original.draw(in: renderRect)
-		}
-        // Above renderer could be eliminated in cases without shadows using (UIImageView).layer.cornerRadius
-
-		cell.imageView?.image = rounded
+        cell.imageView?.image = UIImage(contentsOfFile: getDocumentsDirectory().appendingPathComponent(circleName(item: currentImage)).path)
 
 		// give the images a nice shadow to make them look a bit more dramatic
 		cell.imageView?.layer.shadowColor = UIColor.black.cgColor
@@ -102,7 +88,7 @@ class SelectionViewController: UITableViewController {
 		cell.imageView?.layer.shadowRadius = 10
 		cell.imageView?.layer.shadowOffset = CGSize.zero
         // Provide hard-coded path to avoid second pass of imageView for determining shadow shape
-        cell.imageView?.layer.shadowPath = UIBezierPath(ovalIn: renderRect).cgPath
+        cell.imageView?.layer.shadowPath = UIBezierPath(ovalIn: CGRect(origin: .zero, size: thumbSize)).cgPath
 
 		// each image stores how often it's been tapped
 		let defaults = UserDefaults.standard
@@ -122,6 +108,42 @@ class SelectionViewController: UITableViewController {
 		// add to our view controller cache and show
         // Remove unnecessary "cache"
         //		viewControllers.append(vc)
-		navigationController!.pushViewController(vc, animated: true)
+		navigationController?.pushViewController(vc, animated: true)
 	}
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func circleName(item: String) -> String {
+        return item.replacingOccurrences(of: "Large", with: "Circle")
+    }
+    
+    func saveCircle(item: String) {
+        guard let path = Bundle.main.path(forResource: item, ofType: nil) else { return }
+        guard let image = UIImage(contentsOfFile: path) else { return }
+        
+        // Scale images down to size before drawing
+        let thumbRect = CGRect(origin: .zero, size: thumbSize)
+        let renderer = UIGraphicsImageRenderer(size: thumbSize)
+        let imageCirc = renderer.image { ctx in
+            // // Render shadow at draw time instead of based on imageView
+            // // Do not use -- results do not match intended appearance
+            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 200, color: UIColor.black.cgColor)
+            // ctx.cgContext.fillEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
+            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 0, color: nil)
+            
+            ctx.cgContext.addEllipse(in: thumbRect)
+            ctx.cgContext.clip()
+
+            image.draw(in: thumbRect)
+        }
+        // Above renderer could be eliminated in cases without shadows using (UIImageView).layer.cornerRadius
+        
+        let imagePath = getDocumentsDirectory().appendingPathComponent(circleName(item: item))
+        if let png = imageCirc.pngData() {
+            try? png.write(to: imagePath)
+        }
+    }
 }
