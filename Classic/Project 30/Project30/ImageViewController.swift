@@ -9,7 +9,8 @@
 import UIKit
 
 class ImageViewController: UIViewController {
-	var owner: SelectionViewController!
+	// Prevent strong reference cycles
+    weak var owner: SelectionViewController!
 	var image: String!
 	var animTimer: Timer!
 
@@ -49,7 +50,9 @@ class ImageViewController: UIViewController {
         super.viewDidLoad()
 
 		title = image.replacingOccurrences(of: "-Large.jpg", with: "")
-		let original = UIImage(named: image)!
+        // Use UIImage(contentsOfFile:) to avoid caching these exceedingly large images when they probably won't be accessed very frequently
+        let path = Bundle.main.path(forResource: image, ofType: nil)!
+        let original = UIImage(contentsOfFile: path)!
 
 		let renderer = UIGraphicsImageRenderer(size: original.size)
 
@@ -83,4 +86,10 @@ class ImageViewController: UIViewController {
 		// tell the parent view controller that it should refresh its table counters when we go back
 		owner.dirty = true
 	}
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Invalidate timer which holds strong reference
+        animTimer.invalidate()
+    }
 }

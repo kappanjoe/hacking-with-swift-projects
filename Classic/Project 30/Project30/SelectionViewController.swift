@@ -10,7 +10,8 @@ import UIKit
 
 class SelectionViewController: UITableViewController {
 	var items = [String]() // this is the array that will store the filenames to load
-	var viewControllers = [UIViewController]() // create a cache of the detail view controllers for faster loading
+    // Remove unnecessary "cache" of view controllers
+    //	var viewControllers = [UIViewController]() // create a cache of the detail view controllers for faster loading
 	var dirty = false
 
     override func viewDidLoad() {
@@ -20,6 +21,8 @@ class SelectionViewController: UITableViewController {
 
 		tableView.rowHeight = 90
 		tableView.separatorStyle = .none
+        // Set Identifier "Cell" for reuse and dequeuing
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
 		// load all the JPEGs into our array
 		let fm = FileManager.default
@@ -56,7 +59,16 @@ class SelectionViewController: UITableViewController {
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        // Dequeue resuable cells to stop excess cell allocation
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        // // Manually dequeue a cell or create if nil
+        // // Useful for implementing multiple cell types or one-off procedures
+        // // (Remove tableView.register("Cell") from viewDidLoad() to use)
+        // var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        //
+        // if cell == nil {
+        //    cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        // }
 
 		// find the image for this cell, and load its thumbnail
 		let currentImage = items[indexPath.row % items.count]
@@ -64,14 +76,23 @@ class SelectionViewController: UITableViewController {
 		let path = Bundle.main.path(forResource: imageRootName, ofType: nil)!
 		let original = UIImage(contentsOfFile: path)!
 
-		let renderer = UIGraphicsImageRenderer(size: original.size)
+		// Scale images down to size before drawing
+        let renderRect = CGRect(origin: .zero, size: CGSize(width: 90, height: 90))
+        let renderer = UIGraphicsImageRenderer(size: renderRect.size)
 
 		let rounded = renderer.image { ctx in
-			ctx.cgContext.addEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
+            // // Render shadow at draw time instead of based on imageView
+            // // Do not use -- results do not match intended appearance
+            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 200, color: UIColor.black.cgColor)
+            // ctx.cgContext.fillEllipse(in: CGRect(origin: CGPoint.zero, size: original.size))
+            // ctx.cgContext.setShadow(offset: CGSize.zero, blur: 0, color: nil)
+            
+            ctx.cgContext.addEllipse(in: renderRect)
 			ctx.cgContext.clip()
 
-			original.draw(at: CGPoint.zero)
+			original.draw(in: renderRect)
 		}
+        // Above renderer could be eliminated in cases without shadows using (UIImageView).layer.cornerRadius
 
 		cell.imageView?.image = rounded
 
@@ -80,6 +101,8 @@ class SelectionViewController: UITableViewController {
 		cell.imageView?.layer.shadowOpacity = 1
 		cell.imageView?.layer.shadowRadius = 10
 		cell.imageView?.layer.shadowOffset = CGSize.zero
+        // Provide hard-coded path to avoid second pass of imageView for determining shadow shape
+        cell.imageView?.layer.shadowPath = UIBezierPath(ovalIn: renderRect).cgPath
 
 		// each image stores how often it's been tapped
 		let defaults = UserDefaults.standard
@@ -97,7 +120,8 @@ class SelectionViewController: UITableViewController {
 		dirty = false
 
 		// add to our view controller cache and show
-		viewControllers.append(vc)
+        // Remove unnecessary "cache"
+        //		viewControllers.append(vc)
 		navigationController!.pushViewController(vc, animated: true)
 	}
 }
