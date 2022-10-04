@@ -29,3 +29,4 @@
 - ***Project 27: Core Graphics*** - Core Graphics
 - ***Project 28: Secret Swift*** - Touch ID and Face ID, device keychain
 - ***Project 29: Exploding Monkeys*** - Mixing UIKit and SpriteKit, texture atlases, scene transitions, destructible terrain
+- ***Project 30: Instruments*** - Profiling, shadows, image caching

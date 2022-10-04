@@ -35,3 +35,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 27: Core Graphics
 - Project 28: Secret Swift
 - Project 29: Exploding Monkeys
+- Project 30: Instruments
