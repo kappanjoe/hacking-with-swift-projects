@@ -36,3 +36,4 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 28: Secret Swift
 - Project 29: Exploding Monkeys
 - Project 30: Instruments
+- Project 31: Multibrowser
