@@ -31,3 +31,4 @@
 - ***Project 29: Exploding Monkeys*** - Mixing UIKit and SpriteKit, texture atlases, scene transitions, destructible terrain
 - ***Project 30: Instruments*** - Profiling, shadows, image caching
 - ***Project 31: Multibrowser*** - UIStackView, multitasking for iPad, size classes
+- ***Project 32: SwiftSearcher*** - Core Spotlight, SFSafariViewController, NSAttributedString, Dynamic Type, automatic UITableViewCell sizing
