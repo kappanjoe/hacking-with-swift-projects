@@ -33,3 +33,4 @@
 - ***Project 31: Multibrowser*** - UIStackView, multitasking for iPad, size classes
 - ***Project 32: SwiftSearcher*** - Core Spotlight, SFSafariViewController, NSAttributedString, Dynamic Type, automatic UITableViewCell sizing
 - ***Project 33: What's that Whistle?*** - *WIP - Pending Enrollment in Apple Developer Program* - CloudKit, CKRecord, CKQuery, CKQuerySubscription, AVAudioRecorder, and push messages
+- ***Project 34: Four in a Row*** - GameplayKit, GKMinmaxStrategist, GKGameModel, UIStackView, map()
