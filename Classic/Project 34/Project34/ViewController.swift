@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GameplayKit
 
 class ViewController: UIViewController {
 
@@ -24,6 +25,8 @@ class ViewController: UIViewController {
     var placedChips = [[UIView]]()
     var board: Board!
     
+    var strategist: GKMinmaxStrategist!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,12 +34,18 @@ class ViewController: UIViewController {
             placedChips.append([UIView]())
         }
         
+        strategist = GKMinmaxStrategist()
+        strategist.maxLookAheadDepth = 7
+        strategist.randomSource = nil
+        
         resetBoard()
     }
     
     func resetBoard() {
         board = Board()
-        updateTitle()
+        strategist.gameModel = board
+        
+        updateUI()
         
         for i in 0 ..< placedChips.count {
             for chip in placedChips[i] {
@@ -80,8 +89,12 @@ class ViewController: UIViewController {
         return CGPoint(x: xOffset, y: yOffset)
     }
 
-    func updateTitle() {
+    func updateUI() {
         title = "\(board.currentPlayer.name)'s Turn"
+        
+        if board.currentPlayer.chip == .black {
+            startAIMove()
+        }
     }
     
     func continueGame() {
@@ -105,7 +118,50 @@ class ViewController: UIViewController {
         }
         
         board.currentPlayer = board.currentPlayer.opponent
-        updateTitle()
+        updateUI()
+    }
+    
+    func columnForAIMove() -> Int? {
+        if let aiMove = strategist.bestMove(for: board.currentPlayer) as? Move {
+            return aiMove.column
+        }
+        
+        return nil
+    }
+    
+    func makeAIMove(in column: Int) {
+        columnButtons.forEach { $0.isEnabled = true }
+        navigationItem.leftBarButtonItem = nil
+        
+        if let row = board.nextEmptySlot(in: column) {
+            board.add(chip: board.currentPlayer.chip, in: column)
+            addChip(inColumn: column, row: row, color: board.currentPlayer.color)
+            
+            continueGame()
+        }
+    }
+    
+    func startAIMove() {
+        columnButtons.forEach { $0.isEnabled = false }
+        
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: spinner)
+        
+        DispatchQueue.global().async { [unowned self] in
+            let strategistTime = CFAbsoluteTimeGetCurrent()
+            guard let column = self.columnForAIMove() else { return }
+            let delta = CFAbsoluteTimeGetCurrent() - strategistTime
+            
+            // Delay to prevent confusing user if AI responds too quickly
+            let aiTimeCeiling = 1.0
+            let delay = aiTimeCeiling - delta
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                self.makeAIMove(in: column)
+            }
+        }
     }
 }
 

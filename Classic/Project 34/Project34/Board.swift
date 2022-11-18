@@ -15,12 +15,19 @@ enum ChipColor: Int {
     // Swift will auto-increment for each case
 }
 
-class Board: NSObject {
+class Board: NSObject, GKGameModel {
     static var width = 7
     static var height = 6
     var currentPlayer: Player
     
     var slots = [ChipColor]()
+    
+    var players: [GKGameModelPlayer]? {
+        return Player.allPlayers
+    }
+    var activePlayer: GKGameModelPlayer? {
+        return currentPlayer
+    }
     
     override init() {
         for _ in 0 ..< Board.width * Board.height {
@@ -105,5 +112,63 @@ class Board: NSObject {
         
         // All checks passed
         return true
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Board()
+        copy.setGameModel(self)
+        return copy
+    }
+    
+    func setGameModel(_ gameModel: GKGameModel) {
+        if let board = gameModel as? Board {
+            slots = board.slots
+            currentPlayer = board.currentPlayer
+        }
+    }
+    
+    func gameModelUpdates(for player: GKGameModelPlayer) -> [GKGameModelUpdate]? {
+        // Optionally downcast GKGameModelPlayer into Player
+        if let playerObject = player as? Player {
+            // If winner exists, return nil to signal no further moves available
+            if isWin(for: playerObject) || isWin(for: playerObject.opponent) {
+                return nil
+            }
+            
+            // Otherwise, create a new array holding Move objects
+            var moves = [Move]()
+            
+            // Loop through columns and check if another move is possible
+            for column in 0 ..< Board.width {
+                if canMove(in: column) {
+                    // If possible, create a new Move object for the column and add to array
+                    moves.append(Move(column: column))
+                }
+            }
+            
+            // Return array to tell AI all possible moves
+            return moves
+        }
+        
+        return nil
+    }
+    
+    func apply(_ gameModelUpdate: GKGameModelUpdate) {
+        if let move = gameModelUpdate as? Move {
+            add(chip: currentPlayer.chip, in: move.column)
+            currentPlayer = currentPlayer.opponent
+        }
+    }
+    
+    func score(for player: GKGameModelPlayer) -> Int {
+        if let playerObject = player as? Player {
+            if isWin(for: playerObject) {
+                return 1000
+            } else if isWin(for: playerObject.opponent) {
+                return -1000
+            }
+        }
+        
+        return 0
     }
 }
