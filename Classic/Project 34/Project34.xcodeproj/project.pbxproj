@@ -16,6 +16,8 @@
 		7C1D280B292647790015C09C /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1D280A292647790015C09C /* Board.swift */; };
 		7C1D280D292728FC0015C09C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1D280C292728FC0015C09C /* Player.swift */; };
 		7C1D280F292733080015C09C /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1D280E292733080015C09C /* Move.swift */; };
+		7C1D2811292B16C70015C09C /* redchip.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C1D2810292B16C60015C09C /* redchip.png */; };
+		7C1D2813292B16CE0015C09C /* blackchip.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C1D2812292B16CE0015C09C /* blackchip.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		7C1D280A292647790015C09C /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		7C1D280C292728FC0015C09C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		7C1D280E292733080015C09C /* Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
+		7C1D2810292B16C60015C09C /* redchip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redchip.png; sourceTree = "<group>"; };
+		7C1D2812292B16CE0015C09C /* blackchip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackchip.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				7C1D27FF29263FAB0015C09C /* Assets.xcassets */,
 				7C1D280129263FAB0015C09C /* LaunchScreen.storyboard */,
 				7C1D280429263FAB0015C09C /* Info.plist */,
+				7C1D2810292B16C60015C09C /* redchip.png */,
+				7C1D2812292B16CE0015C09C /* blackchip.png */,
 			);
 			path = Project34;
 			sourceTree = "<group>";
@@ -135,7 +141,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C1D280329263FAB0015C09C /* LaunchScreen.storyboard in Resources */,
+				7C1D2811292B16C70015C09C /* redchip.png in Resources */,
 				7C1D280029263FAB0015C09C /* Assets.xcassets in Resources */,
+				7C1D2813292B16CE0015C09C /* blackchip.png in Resources */,
 				7C1D27FE29263FAA0015C09C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

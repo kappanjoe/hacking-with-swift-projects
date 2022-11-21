@@ -17,28 +17,72 @@ class ViewController: UIViewController {
         
         if let row = board.nextEmptySlot(in: column) {
             board.add(chip: board.currentPlayer.chip, in: column)
-            addChip(inColumn: column, row: row, color: board.currentPlayer.color)
+            addChip(inColumn: column, row: row, chipImg: board.currentPlayer.chipImg)
             continueGame()
         }
     }
     
-    var placedChips = [[UIView]]()
+    var placedChips = [[UIImageView]]()
     var board: Board!
     
     var strategist: GKMinmaxStrategist!
+    var difficulty: Int!
+    var useOpponentAI: Bool! {
+        didSet {
+            if useOpponentAI {
+                let modeButton = UIBarButtonItem(title: "Play with 2 Players", style: .plain, target: self, action: #selector(swapMode))
+                var difficultyButton = UIBarButtonItem(title: "Select Difficulty", style: .plain, target: self, action: #selector(selectDifficulty))
+                DispatchQueue.main.async { [unowned self] in
+                    self.navigationItem.rightBarButtonItem = modeButton
+                    self.navigationItem.leftBarButtonItem = difficultyButton
+                }
+            } else {
+                let modeButton = UIBarButtonItem(title: "Play with AI Opponent", style: .plain, target: self, action: #selector(swapMode))
+                DispatchQueue.main.async { [unowned self] in
+                    self.navigationItem.rightBarButtonItem = modeButton
+                    self.navigationItem.leftBarButtonItem = nil
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         for _ in 0 ..< Board.width {
-            placedChips.append([UIView]())
+            placedChips.append([UIImageView]())
         }
         
+        difficulty = 3
+        useOpponentAI = false
+        
         strategist = GKMinmaxStrategist()
-        strategist.maxLookAheadDepth = 7
+        strategist.maxLookAheadDepth = difficulty
         strategist.randomSource = nil
         
         resetBoard()
+    }
+    
+    @objc func swapMode() {
+        useOpponentAI.toggle()
+    }
+    
+    @objc func selectDifficulty() {
+        let ac = UIAlertController(title: "Select Difficulty", message: "Current game will be reset.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Easy", style: .default) { [unowned self] action in
+            self.difficulty = 1
+            resetBoard()
+        })
+        ac.addAction(UIAlertAction(title: "Medium", style: .default) { [unowned self] action in
+            self.difficulty = 3
+            resetBoard()
+        })
+        ac.addAction(UIAlertAction(title: "Hard", style: .default) { [unowned self] action in
+            self.difficulty = 7
+            resetBoard()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     func resetBoard() {
@@ -56,22 +100,20 @@ class ViewController: UIViewController {
         }
     }
     
-    func addChip(inColumn column: Int, row: Int, color: UIColor) {
+    func addChip(inColumn column: Int, row: Int, chipImg: String) {
         let button = columnButtons[column]
         let size = min(button.frame.width, button.frame.height / 6)
         let rect = CGRect(x: 0, y: 0, width: size, height: size)
         
         if (placedChips[column].count < row + 1) {
-            let newChip = UIView()
+            let newChip = UIImageView(image: UIImage(named: chipImg))
             newChip.frame = rect
             newChip.isUserInteractionEnabled = false
-            newChip.backgroundColor = color
-            newChip.layer.cornerRadius = size / 2
             newChip.center = positionForChip(inColumn: column, row: row)
             newChip.transform = CGAffineTransform(translationX: 0, y: -800)
             view.addSubview(newChip)
             
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+            UIImageView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
                 newChip.transform = CGAffineTransform.identity
             })
             
@@ -92,7 +134,7 @@ class ViewController: UIViewController {
     func updateUI() {
         title = "\(board.currentPlayer.name)'s Turn"
         
-        if board.currentPlayer.chip == .black {
+        if board.currentPlayer.chip == .black && useOpponentAI {
             startAIMove()
         }
     }
@@ -131,11 +173,12 @@ class ViewController: UIViewController {
     
     func makeAIMove(in column: Int) {
         columnButtons.forEach { $0.isEnabled = true }
-        navigationItem.leftBarButtonItem = nil
+        var difficultyButton = UIBarButtonItem(title: "Select Difficulty", style: .plain, target: self, action: #selector(selectDifficulty))
+        navigationItem.leftBarButtonItem = difficultyButton
         
         if let row = board.nextEmptySlot(in: column) {
             board.add(chip: board.currentPlayer.chip, in: column)
-            addChip(inColumn: column, row: row, color: board.currentPlayer.color)
+            addChip(inColumn: column, row: row, chipImg: board.currentPlayer.chipImg)
             
             continueGame()
         }

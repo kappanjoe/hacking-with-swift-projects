@@ -10,7 +10,7 @@ import GameKit
 
 class Player: NSObject, GKGameModelPlayer {
     var chip: ChipColor
-    var color: UIColor
+    var chipImg: String
     var name: String
     var playerId: Int
     
@@ -21,10 +21,10 @@ class Player: NSObject, GKGameModelPlayer {
         self.playerId = chip.rawValue
         
         if chip == .red {
-            color = .red
+            chipImg = "redchip.png"
             name = "Red"
         } else {
-            color = .black
+            chipImg = "blackchip.png"
             name = "Black"
         }
         
