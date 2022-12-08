@@ -47,7 +47,10 @@ xcuserdata/
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcodeproj/project.xcworkspace/
+!*.xcodeproj/project.xcworkspace/*
+project.xcworkspace
 !*.xcworkspace/contents.xcworkspacedata
+contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
