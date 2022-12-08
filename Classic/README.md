@@ -34,3 +34,4 @@
 - ***Project 32: SwiftSearcher*** - Core Spotlight, SFSafariViewController, NSAttributedString, Dynamic Type, automatic UITableViewCell sizing
 - ***Project 33: What's that Whistle?*** - *WIP - Pending Enrollment in Apple Developer Program* - CloudKit, CKRecord, CKQuery, CKQuerySubscription, AVAudioRecorder, and push messages
 - ***Project 34: Four in a Row*** - GameplayKit, GKMinmaxStrategist, GKGameModel, UIStackView, map()
+- ***Project 35: Generating Random Numbers*** - GameplayKit, GKRandomSource, GKARC4RandomSource, GKRandomDistribution, GKShuffledDistribution, GKGaussianDistribution
