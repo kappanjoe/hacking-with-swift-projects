@@ -43,4 +43,5 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 35: Generating Random Numbers
 - Project 36: Crashy Plane
 - Project 37: Psychic Tester - *Skipped - Xcode 14 does not provide WatchKit template*
+- Project 38: GitHub Commits
 </details>
