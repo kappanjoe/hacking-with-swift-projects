@@ -36,3 +36,4 @@
 - ***Project 34: Four in a Row*** - GameplayKit, GKMinmaxStrategist, GKGameModel, UIStackView, map()
 - ***Project 35: Generating Random Numbers*** - GameplayKit, GKRandomSource, GKARC4RandomSource, GKRandomDistribution, GKShuffledDistribution, GKGaussianDistribution
 - ***Project 36: Crashy Plane*** - SKAudioNode, GameplayKit randomization, and the guard keyword
+- ***Project 37: Psychic Tester*** - *Skipped - Xcode 14 does not provide WatchKit template* - CAEmitterLayer, CAGradientLayer, IBDesignable, transition(with:), 3D Touch, WatchKit

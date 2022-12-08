@@ -4,7 +4,7 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 
 # Table of Contents
 
-## Classic (UIKit/SpriteKit)
+<details><summary>## Classic (UIKit/SpriteKit)</summary>
 
 - Project 1: Storm Viewer
 - Project 2: Guess the Flag
@@ -42,3 +42,5 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 34: Four in a Row
 - Project 35: Generating Random Numbers
 - Project 36: Crashy Plane
+- Project 37: Psychic Tester - *Skipped - Xcode 14 does not provide WatchKit template*
+</details>
