@@ -1,3 +1,3 @@
-# Classic (UIKit/SpriteKit) Table of Contents
+# SwiftUI Table of Contents
 
-- ***Project 1: WeSplit***
+- Project 1: WeSplit
