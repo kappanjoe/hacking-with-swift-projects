@@ -46,3 +46,9 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 38: GitHub Commits
 - Project 39: Unit testing with XCTest - *Incomplete: Instruction materials not updated for Xcode 14*
 </details>
+
+<details><summary>## SwiftUI</summary>
+
+- Project 1: WeSplit
+
+</details>
