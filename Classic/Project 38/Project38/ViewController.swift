@@ -20,6 +20,9 @@ class ViewController: UITableViewController, NSFetchedResultsControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		title = "Swift Commits"
+		
+		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(changeFilter))
         
 		// 1. Loads data from application bundle and creates NSManagedObjectModel
@@ -206,14 +209,38 @@ class ViewController: UITableViewController, NSFetchedResultsControllerDelegate 
 		}
 	}
 	
-	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+
+		let section = IndexSet(integer: sectionIndex)
+
 		switch type {
 		case .delete:
-			tableView.deleteRows(at: [indexPath!], with: .automatic)
-			
+			tableView.deleteSections(section, with: .automatic)
+		case .insert:
+			tableView.insertSections(section, with: .automatic)
 		default:
 			break
 		}
+	}
+	
+	func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+
+		switch type {
+		case .delete:
+			tableView.deleteRows(at: [indexPath!], with: .automatic)
+		case .insert:
+			tableView.insertRows(at: [indexPath!], with: .automatic)
+		default:
+			break
+		}
+	}
+	
+	func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tableView.beginUpdates()
+	}
+	
+	func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+		tableView.endUpdates()
 	}
 }
 

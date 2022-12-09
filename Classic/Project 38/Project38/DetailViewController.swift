@@ -6,21 +6,59 @@
 //
 
 import UIKit
+import WebKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, WKNavigationDelegate {
 
-	@IBOutlet var detailLabel: UILabel!
-	
 	var detailItem: Commit?
+	var webView: WKWebView!
+	
+	override func loadView() {
+		webView = WKWebView()
+		webView.navigationDelegate = self
+		view = webView
+	}
 	
 	override func viewDidLoad() {
         super.viewDidLoad()
 
 		if let detail = self.detailItem {
-			detailLabel.text = detail.message
-			// navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Commit 1/\(detail.author.commits.count)", style: .plain, target: self, action: #selector(showAuthorCommits))
+			title = detail.message
+			navigationItem.hidesBackButton = false
+			navigationItem.largeTitleDisplayMode = .never
+			navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Commit 1/\(detail.author.commits.count)", style: .plain, target: self, action: #selector(showAuthorCommits))
+			
+			let url = URL(string: detail.url)!
+			webView.load(URLRequest(url: url))
 		}
     }
+	
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		title = webView.title
+	}
+	
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		let url = navigationAction.request.url
+		let ac = UIAlertController(title: "Restricted Website", message: "Sorry, that website is blocked.", preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "Return to Browser", style: .default, handler: nil))
+		
+		if let host = url?.host {
+			if self.detailItem!.url.contains(host) {
+				decisionHandler(.allow)
+				return
+			}
+			present(ac, animated: true)
+		}
+		
+		decisionHandler(.cancel)
+	}
+	
+	@objc func showAuthorCommits() {
+		if let vc = storyboard?.instantiateViewController(withIdentifier: "Author") as? AuthorViewController {
+			vc.authorItem = self.detailItem?.author
+			navigationController?.pushViewController(vc, animated: true)
+		}
+	}
     
 
     /*

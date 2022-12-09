@@ -20,6 +20,7 @@
 		7C3EE1C42941CD78006A2DE7 /* Commit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EE1C22941CD78006A2DE7 /* Commit+CoreDataProperties.swift */; };
 		7C3EE1C72941DA13006A2DE7 /* Author+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EE1C52941DA13006A2DE7 /* Author+CoreDataClass.swift */; };
 		7C3EE1C82941DA13006A2DE7 /* Author+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EE1C62941DA13006A2DE7 /* Author+CoreDataProperties.swift */; };
+		7C3EE1CA2942FFA4006A2DE7 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3EE1C92942FFA4006A2DE7 /* AuthorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		7C3EE1C22941CD78006A2DE7 /* Commit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Commit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		7C3EE1C52941DA13006A2DE7 /* Author+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataClass.swift"; sourceTree = "<group>"; };
 		7C3EE1C62941DA13006A2DE7 /* Author+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7C3EE1C92942FFA4006A2DE7 /* AuthorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				7C3EE1A82941C569006A2DE7 /* SceneDelegate.swift */,
 				7C3EE1AA2941C569006A2DE7 /* ViewController.swift */,
 				7C3EE1BC2941C8E4006A2DE7 /* DetailViewController.swift */,
+				7C3EE1C92942FFA4006A2DE7 /* AuthorViewController.swift */,
 				7C3EE1AC2941C569006A2DE7 /* Main.storyboard */,
 				7C3EE1AF2941C56A006A2DE7 /* Assets.xcassets */,
 				7C3EE1B12941C56A006A2DE7 /* LaunchScreen.storyboard */,
@@ -166,6 +169,7 @@
 				7C3EE1A92941C569006A2DE7 /* SceneDelegate.swift in Sources */,
 				7C3EE1C02941C97A006A2DE7 /* Project38.xcdatamodeld in Sources */,
 				7C3EE1C72941DA13006A2DE7 /* Author+CoreDataClass.swift in Sources */,
+				7C3EE1CA2942FFA4006A2DE7 /* AuthorViewController.swift in Sources */,
 				7C3EE1C42941CD78006A2DE7 /* Commit+CoreDataProperties.swift in Sources */,
 				7C3EE1C82941DA13006A2DE7 /* Author+CoreDataProperties.swift in Sources */,
 				7C3EE1BB2941C68F006A2DE7 /* SwiftyJSON.swift in Sources */,
