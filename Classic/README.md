@@ -32,9 +32,10 @@
 - ***Project 30: Instruments*** - Profiling, shadows, image caching
 - ***Project 31: Multibrowser*** - UIStackView, multitasking for iPad, size classes
 - ***Project 32: SwiftSearcher*** - Core Spotlight, SFSafariViewController, NSAttributedString, Dynamic Type, automatic UITableViewCell sizing
-- ***Project 33: What's that Whistle?*** - *WIP - Pending Enrollment in Apple Developer Program* - CloudKit, CKRecord, CKQuery, CKQuerySubscription, AVAudioRecorder, and push messages
+- ***Project 33: What's that Whistle?*** - *Incomplete: Enrollment in Apple Developer Program required* - CloudKit, CKRecord, CKQuery, CKQuerySubscription, AVAudioRecorder, and push messages
 - ***Project 34: Four in a Row*** - GameplayKit, GKMinmaxStrategist, GKGameModel, UIStackView, map()
 - ***Project 35: Generating Random Numbers*** - GameplayKit, GKRandomSource, GKARC4RandomSource, GKRandomDistribution, GKShuffledDistribution, GKGaussianDistribution
 - ***Project 36: Crashy Plane*** - SKAudioNode, GameplayKit randomization, and the guard keyword
-- ***Project 37: Psychic Tester*** - *Skipped - Xcode 14 does not provide WatchKit template* - CAEmitterLayer, CAGradientLayer, IBDesignable, transition(with:), 3D Touch, WatchKit
+- ***Project 37: Psychic Tester*** - *Unattempted: Xcode 14 does not provide WatchKit template* - CAEmitterLayer, CAGradientLayer, IBDesignable, transition(with:), 3D Touch, WatchKit
 - ***Project 38: GitHub Commits*** - Core Data, NSPersistentContainer, NSFetchRequest, NSSortDescriptor, NSFetchedResultsController, DateFormatter
+- ***Project 39: Unit testing with XCTest*** - *Incomplete: Instruction materials not updated for Xcode 14* - XCTest, measure(), filter(), sort(), NSCountedSet

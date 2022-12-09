@@ -38,10 +38,11 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 30: Instruments
 - Project 31: Multibrowser
 - Project 32: SwiftSearcher
-- Project 33: What's that Whistle? - *WIP - Pending Enrollment in Apple Developer Program*
+- Project 33: What's that Whistle? - *Incomplete: Enrollment in Apple Developer Program required*
 - Project 34: Four in a Row
 - Project 35: Generating Random Numbers
 - Project 36: Crashy Plane
-- Project 37: Psychic Tester - *Skipped - Xcode 14 does not provide WatchKit template*
+- Project 37: Psychic Tester - *Unattempted: Xcode 14 does not provide WatchKit template*
 - Project 38: GitHub Commits
+- Project 39: Unit testing with XCTest - *Incomplete: Instruction materials not updated for Xcode 14*
 </details>
