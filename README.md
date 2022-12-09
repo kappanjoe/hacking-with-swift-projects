@@ -4,7 +4,7 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 
 # Table of Contents
 
-<details><summary>## Classic (UIKit/SpriteKit)</summary>
+<details><summary>Classic (UIKit/SpriteKit)</summary>
 
 - Project 1: Storm Viewer
 - Project 2: Guess the Flag
@@ -47,7 +47,7 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 39: Unit testing with XCTest - *Incomplete: Instruction materials not updated for Xcode 14*
 </details>
 
-<details><summary>## SwiftUI</summary>
+<details><summary>SwiftUI</summary>
 
 - Project 1: WeSplit
 
