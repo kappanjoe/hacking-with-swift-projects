@@ -50,5 +50,6 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 <details><summary>SwiftUI</summary>
 
 - Project 1: WeSplit
+- Project 2: GuessTheFlag
 
 </details>
