@@ -14,12 +14,10 @@ struct ContentView: View {
 				.foregroundColor(.white)
 			CapsuleText(text: "Second")
 				.foregroundColor(.yellow)
-			CapsuleText(text: "Third")
-				.foregroundColor(.gray)
 			Text("Goodbye Mars")
 				.modifier(Title())
 			Text("Hello World")
-				.titleStyle()
+				.blueTitle()
 			Color.blue
 				.frame(width: 300, height: 200)
 				.watermarked(with: "Hacking with Swift")
@@ -92,6 +90,14 @@ struct Watermark: ViewModifier {
 	}
 }
 
+struct BlueTitle: ViewModifier {
+	func body(content: Content) -> some View {
+		content
+			.foregroundColor(.blue)
+			.font(.title)
+	}
+}
+
 extension View {
 	// Custom ViewModifiers can store properties
 	// Extensions (like below) cannot
@@ -100,8 +106,12 @@ extension View {
 	}
 	
 	func watermarked(with text: String) -> some View {
-			modifier(Watermark(text: text))
-		}
+		modifier(Watermark(text: text))
+	}
+	
+	func blueTitle() -> some View {
+		modifier(BlueTitle())
+	}
 }
 
 struct ContentView_Previews: PreviewProvider {

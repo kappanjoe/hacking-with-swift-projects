@@ -14,6 +14,9 @@ struct ContentView: View {
 	let tipPercentages = [10, 15, 20, 25, 0]
 	
 	@State private var grandTotal = 0.0
+	var didNotTip: Bool {
+		return tipPercentage == 0
+	}
 	var totalPerPerson: Double {
 		let peopleCount = Double(peopleIndex + 2)
 		let tipSelection = Double(tipPercentage)
@@ -62,7 +65,7 @@ struct ContentView: View {
 				}
 				
 				Section {
-					Text(grandTotal, format: currency)
+					GrandTotalText(didNotTip: didNotTip, grandTotal: grandTotal, currency: currency)
 				} header: {
 					Text("Check total w/ tip:")
 				}
@@ -86,6 +89,22 @@ struct ContentView: View {
 				}
 			}
 		}
+	}
+}
+
+struct GrandTotalText: View {
+	
+	var didNotTip: Bool
+	var grandTotal: Double
+	let currency: FloatingPointFormatStyle<Double>.Currency
+	
+	var body: some View {
+		if didNotTip {
+			return Text("Maybe consider a tip?")
+		} else {
+			return Text(grandTotal, format: currency)
+		}
+		// I tried to make this work with just a conditional property instead of returning a whole new view but I couldn't figure out how to keep the currency formatting alongside the text String 🙃
 	}
 }
 
