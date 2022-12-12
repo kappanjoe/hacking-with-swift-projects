@@ -53,5 +53,6 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 2: Guess the Flag
 - Project 3: Views and Modifiers
 - Project 4: BetterRest
+- Project 5: Word Scramble
 
 </details>
