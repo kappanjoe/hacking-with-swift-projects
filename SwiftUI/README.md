@@ -5,3 +5,4 @@
 - Project 3: Views and Modifiers
 - Project 4: BetterRest
 - Project 5: Word Scramble
+- Project 6: Animation
