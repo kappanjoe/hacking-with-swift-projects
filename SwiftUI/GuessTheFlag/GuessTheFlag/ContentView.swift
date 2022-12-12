@@ -19,6 +19,9 @@ struct ContentView: View {
 	
 	@State private var gameOver = false
 	
+	@State private var rotateAmounts = [0.0, 0.0, 0.0]
+	@State private var alphaScaleAmounts = [1.0, 1.0, 1.0]
+	
 	var body: some View {
 		ZStack {
 			RadialGradient(stops: [
@@ -39,13 +42,18 @@ struct ContentView: View {
 						Text("\(countries[correctAnswer])?")
 							.font(.largeTitle.weight(.bold))
 					}
-					ForEach(0..<3) { number in
-						Button {
-							flagTapped(number)
-						} label: {
-							FlagImage(country: countries[number])
+						ForEach(0..<3) { number in
+							Button {
+								flagTapped(number)
+							} label: {
+								FlagImage(country: countries[number])
+							}
+							.rotationEffect(.degrees(rotateAmounts[number]))
+							.opacity(alphaScaleAmounts[number])
+							.scaleEffect(alphaScaleAmounts[number])
+							.animation(.default, value: rotateAmounts)
+							.animation(.default, value: alphaScaleAmounts)
 						}
-					}
 				}
 				.frame(maxWidth: .infinity)
 				.padding(.vertical, 40)
@@ -76,7 +84,14 @@ struct ContentView: View {
 			scoreTitle = "Correct"
 			score += 1
 			scoreMessage = "Your score is \(score)!"
+			rotateAmounts[number] = 360.0
+			for i in 0..<3 {
+				if i != correctAnswer {
+					alphaScaleAmounts[i] = 0.0
+				}
+			}
 		} else {
+			alphaScaleAmounts = [0.5, 0.5, 0.5]
 			scoreTitle = "Incorrect"
 			score -= 1
 			scoreMessage = "You tapped on \(countries[number]).\nYour score is now \(score)."
@@ -91,6 +106,8 @@ struct ContentView: View {
 		if score == 8 {
 			gameOver = true
 		}
+		rotateAmounts = [0.0, 0.0, 0.0]
+		alphaScaleAmounts = [1.0, 1.0, 1.0]
 	}
 	
 	func resetGame() {
