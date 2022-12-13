@@ -56,5 +56,6 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 5: Word Scramble
 - Project 6: Animation
 - Project 7: iExpense
+- Project 8: Moonshot
 
 </details>
