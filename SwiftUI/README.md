@@ -6,3 +6,4 @@
 - Project 4: BetterRest
 - Project 5: Word Scramble
 - Project 6: Animation
+- Project 7: iExpense
