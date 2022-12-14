@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct CheckoutView: View {
-	@ObservedObject var order: Order
+	@ObservedObject var currentOrder: OrderWrapper
 	
+	@State private var confirmationTitle = ""
 	@State private var confirmationMessage = ""
 	@State private var showingConfirmation = false
 	
 	func placeOrder() async {
-		guard let encoded = try? JSONEncoder().encode(order) else {
+		guard let encoded = try? JSONEncoder().encode(currentOrder) else {
 			print("Failed to encode order")
 			return
 		}
@@ -26,11 +27,14 @@ struct CheckoutView: View {
 		
 		do {
 			let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-			let decodedOrder = try JSONDecoder().decode(Order.self, from: data)
-			confirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
+			let decodedOrder = try JSONDecoder().decode(OrderWrapper.self, from: data)
+			confirmationTitle = "Thank you!"
+			confirmationMessage = "Your order for \(decodedOrder.order.quantity)x \(Order.types[decodedOrder.order.type].lowercased()) cupcakes is on its way!"
 			showingConfirmation = true
 		} catch {
-			print("Checkout failed.")
+			confirmationTitle = "Error"
+			confirmationMessage = error.localizedDescription
+			showingConfirmation = true
 		}
 	}
 	
@@ -46,7 +50,7 @@ struct CheckoutView: View {
 				}
 				.frame(height: 233)
 				
-				Text("Your total is \(order.cost, format: .currency(code: "USD"))")
+				Text("Your total is \(currentOrder.order.cost, format: .currency(code: "USD"))")
 					.font(.title)
 				
 				Button("Place Order") {
@@ -59,16 +63,20 @@ struct CheckoutView: View {
 		}
 		.navigationTitle("Check Out")
 		.navigationBarTitleDisplayMode(.inline)
-		.alert("Thank you!", isPresented: $showingConfirmation) {
+		.alert(confirmationTitle, isPresented: $showingConfirmation) {
 			Button("OK") { }
 		} message: {
 			Text(confirmationMessage)
 		}
     }
+	
+	init(order currentOrder: OrderWrapper) {
+		self.currentOrder = currentOrder
+	}
 }
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-		CheckoutView(order: Order())
+		CheckoutView(order: OrderWrapper())
     }
 }
