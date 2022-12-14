@@ -243,6 +243,58 @@ struct ContentView: View {
 	@State private var amount = 1.0
 	@State private var hue = 0.6
 	
+	struct Arrow: Shape {
+		var stemWidth: CGFloat
+		
+		var animatableData: Double {
+			get { stemWidth }
+			set { stemWidth = newValue }
+		}
+		
+		func path(in rect: CGRect) -> Path {
+			var path = Path()
+			
+			var stemHalf = stemWidth > rect.midX ? rect.midX / 2 : stemWidth / 2
+
+			path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+			path.addLine(to: CGPoint(x: rect.minX + (rect.midX / 2), y: rect.midY / 2))
+			path.addLine(to: CGPoint(x: rect.midX - stemHalf, y: rect.midY / 2))
+			path.addLine(to: CGPoint(x: rect.midX - stemHalf, y: rect.maxY))
+			path.addLine(to: CGPoint(x: rect.midX + stemHalf, y: rect.maxY))
+			path.addLine(to: CGPoint(x: rect.midX + stemHalf, y: rect.midY / 2))
+			path.addLine(to: CGPoint(x: rect.maxX - (rect.midX / 2), y: rect.midY / 2))
+			path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+
+			return path
+		}
+	}
+	
+	@State private var stemWidth = 20.0
+	
+	struct ColorCyclingRect: View {
+		var amount = 0.0
+
+		var body: some View {
+			ZStack {
+				ForEach(0..<100) { value in
+					Rectangle()
+						.inset(by: Double(value))
+						.strokeBorder(color(for: value, brightness: 1), lineWidth: 2)
+				}
+			}
+		}
+
+		func color(for value: Int, brightness: Double) -> Color {
+			var targetHue = Double(value) / Double(100) + amount
+
+			if targetHue > 1 {
+				targetHue -= 1
+			}
+
+			return Color(hue: targetHue, saturation: 1, brightness: brightness)
+		}
+	}
+	
 	var body: some View {
 // ----- Triangle with rounded corners ----- //
 //
@@ -392,36 +444,49 @@ struct ContentView: View {
 		
 // ----- Roulette ----- //
 //
-		VStack(spacing: 0) {
-			Spacer()
-
-			Roulette(innerRadius: Int(innerRadius), outerRadius: Int(outerRadius), distance: Int(distance), amount: amount)
-				.stroke(Color(hue: hue, saturation: 1, brightness: 1), lineWidth: 1)
-				.frame(width: 300, height: 300)
-
-			Spacer()
-
-			Group {
-				Text("Inner radius: \(Int(innerRadius))")
-				Slider(value: $innerRadius, in: 10...150, step: 1)
-					.padding([.horizontal, .bottom])
-
-				Text("Outer radius: \(Int(outerRadius))")
-				Slider(value: $outerRadius, in: 10...150, step: 1)
-					.padding([.horizontal, .bottom])
-
-				Text("Distance: \(Int(distance))")
-				Slider(value: $distance, in: 1...150, step: 1)
-					.padding([.horizontal, .bottom])
-
-				Text("Amount: \(amount, format: .number.precision(.fractionLength(2)))")
-				Slider(value: $amount)
-					.padding([.horizontal, .bottom])
-
-				Text("Color")
-				Slider(value: $hue)
-					.padding(.horizontal)
-			}
+//		VStack(spacing: 0) {
+//			Spacer()
+//
+//			Roulette(innerRadius: Int(innerRadius), outerRadius: Int(outerRadius), distance: Int(distance), amount: amount)
+//				.stroke(Color(hue: hue, saturation: 1, brightness: 1), lineWidth: 1)
+//				.frame(width: 300, height: 300)
+//
+//			Spacer()
+//
+//			Group {
+//				Text("Inner radius: \(Int(innerRadius))")
+//				Slider(value: $innerRadius, in: 10...150, step: 1)
+//					.padding([.horizontal, .bottom])
+//
+//				Text("Outer radius: \(Int(outerRadius))")
+//				Slider(value: $outerRadius, in: 10...150, step: 1)
+//					.padding([.horizontal, .bottom])
+//
+//				Text("Distance: \(Int(distance))")
+//				Slider(value: $distance, in: 1...150, step: 1)
+//					.padding([.horizontal, .bottom])
+//
+//				Text("Amount: \(amount, format: .number.precision(.fractionLength(2)))")
+//				Slider(value: $amount)
+//					.padding([.horizontal, .bottom])
+//
+//				Text("Color")
+//				Slider(value: $hue)
+//					.padding(.horizontal)
+//			}
+//		}
+		
+		VStack {
+			Arrow(stemWidth: stemWidth)
+				.onTapGesture {
+					withAnimation {
+						stemWidth = Double.random(in: 0...100)
+					}
+				}
+			
+			ColorCyclingRect(amount: colorCycle)
+			Slider(value: $colorCycle)
+				.padding(.horizontal)
 		}
     }
 }
