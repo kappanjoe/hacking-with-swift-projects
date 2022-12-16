@@ -60,4 +60,5 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 9: Drawing
 - Project 10: Cupcake Corner
 - Project 11: Bookworm
+- Project 12: Core Data
 </details>
