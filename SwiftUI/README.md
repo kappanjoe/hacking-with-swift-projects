@@ -10,3 +10,4 @@
 - Project 8: Moonshot - *(Some images and text are used under the [Creative Commons-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license from [Wikipedia](Wikipedia.org))*
 - Project 9: Drawing
 - Project 10: Cupcake Corner
+- Project 11: Bookworm - *(Some images are used under the [Unsplash photo license](https://unsplash.com/license). Photo credits: Ryan Wallace, Eugene Triguba, Jamie Street, Alvaro Serrano, Joao Silas, David Dilbert, and Casey Horner)*
