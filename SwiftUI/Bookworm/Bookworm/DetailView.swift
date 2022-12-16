@@ -42,7 +42,7 @@ struct DetailView: View {
 			}
 			
 			Text(book.author ?? "Unknown Author")
-				.font(.title)
+				.font(.title2)
 				.foregroundColor(.secondary)
 			
 			Text(book.review ?? "No Review")
@@ -50,6 +50,10 @@ struct DetailView: View {
 			
 			RatingView(rating: .constant(Int(book.rating)))
 				.font(.largeTitle)
+			
+			Text("Date Reviewed: \(book.reviewDate?.formatted(date: .abbreviated, time: .omitted) ?? "Unknown")")
+				.font(.caption)
+				.padding()
 		}
 		.navigationTitle(book.title ?? "Unknown Book")
 		.navigationBarTitleDisplayMode(.inline)
@@ -79,6 +83,7 @@ struct DetailView_Previews: PreviewProvider {
 		book.genre = "Fantasy"
 		book.rating = 4
 		book.review = "This was a really good book. I enjoyed it."
+		book.reviewDate = Date.now
 
 		return NavigationView {
 			DetailView(book: book)

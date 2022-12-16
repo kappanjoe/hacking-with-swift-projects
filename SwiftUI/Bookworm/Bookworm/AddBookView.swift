@@ -13,11 +13,20 @@ struct AddBookView: View {
 	
 	@State private var title = ""
 	@State private var author = ""
-	@State private var rating = 3
+	@State private var rating = 0
 	@State private var genre = ""
 	@State private var review = ""
 	
 	let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
+	
+	func isValidBook() -> Bool {
+		let validTitle = title.count > 0
+		let validAuthor = author.count > 0
+		let validRating = rating > 0
+		let validGenre = genre.count > 0
+		let validReview = review.count > 0
+		return !(validTitle && validAuthor && validRating && validGenre && validReview)
+	}
 	
 	var body: some View {
 		NavigationView {
@@ -49,10 +58,12 @@ struct AddBookView: View {
 						newBook.rating = Int16(rating)
 						newBook.genre = genre
 						newBook.review = review
+						newBook.reviewDate = Date.now
 
 						try? moc.save()
 						dismiss()
 					}
+					.disabled(isValidBook())
 				}
 			}
 			.navigationTitle("Add Book")
