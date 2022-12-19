@@ -61,4 +61,5 @@ This is @kappanjoe's personal repository of projects from the [Hacking with Swif
 - Project 10: Cupcake Corner
 - Project 11: Bookworm
 - Project 12: Core Data
+- Project 13: Instafilter
 </details>
